@@ -4,15 +4,23 @@ import logo from '../../../assets/logo.svg';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
-    const {user} = useContext(AuthContext);
-    const navItems = <>
-    
-    <li className='font-semibold'><Link to='/'>Home</Link></li>
-    {user?.email ? 
-    <li className='font-semibold'><Link to='/orders'>Orders</Link></li>
-    : <li className='font-semibold'><Link to='/login'>Login</Link></li>
+    const { user, logOut } = useContext(AuthContext);
+    const handleLogOut = () => {
+        logOut()
+            .then()
+            .catch();
     }
-    
+    const navItems = <>
+
+        <li className='font-semibold'><Link to='/'>Home</Link></li>
+        {user?.email ?
+            <>
+                <li className='font-semibold'><Link to='/orders'>Orders</Link></li>
+                <li className='font-semibold'><button onClick={handleLogOut} className='btn btn-outline btn-error'>Logout</button></li>
+            </>
+            : <li className='font-semibold'><Link to='/login'>Login</Link></li>
+        }
+
     </>
     return (
         <div className="navbar bg-base-100 mb-12 pt-12 h-20">
